@@ -1,6 +1,6 @@
 #pragma once
 #include <stdbool.h>
 
-bool SaveMapToFile();
+bool SaveMapToFile(Map*);
 
-LoadMapFromFile();
+Map* LoadMapFromFile();
