@@ -5,14 +5,14 @@
 typedef struct map {
 
 	int n;
-	Tile* tiles;
+	Tile** tiles;
 
 }Map;
 
 // getter and setters
 
 void setN(Map*, int);
-void setTiles(Map*, Tile*);
+void setTile(Map*, Tile, int, int);
 
 int getN(Map*);
-Tile* getTiles(Map*);
+Tile getTile(Map*, int, int);

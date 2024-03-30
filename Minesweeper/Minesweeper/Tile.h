@@ -16,14 +16,14 @@ typedef struct tile {
 
 // getters and setters
 
-void setLocation(Tile*, Location);
-void setBomb(Tile*, bool);
-void setChecked(Tile*, bool);
-void setFlagged(Tile*, bool);
-void setSurrounding(Tile*, int);
+void setLocation(Tile, Location);
+void setBomb(Tile, bool);
+void setChecked(Tile, bool);
+void setFlagged(Tile, bool);
+void setSurrounding(Tile, int);
 
-Location getLocation(Tile*);
-bool getBomb(Tile*);
-bool getChecked(Tile*);
-bool getFlagged(Tile*);
-int getSurrounding(Tile*);
+Location getLocation(Tile);
+bool getBomb(Tile);
+bool getChecked(Tile);
+bool getFlagged(Tile);
+int getSurrounding(Tile);

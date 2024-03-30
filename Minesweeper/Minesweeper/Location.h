@@ -9,8 +9,8 @@ typedef struct location {
 
 // setters and getters
 
-void setLetter(Location*, char);
-void setNumber(Location*, int);
+void setLetter(Location, char);
+void setNumber(Location, int);
 
-char getLetter(Location*);
-int getNumber(Location*);
+char getLetter(Location);
+int getNumber(Location);
