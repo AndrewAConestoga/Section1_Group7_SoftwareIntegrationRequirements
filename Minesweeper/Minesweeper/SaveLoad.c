@@ -3,9 +3,7 @@
 #include "Saveload.h"
 #include "Constants.h"
 
-// this module is dependent on these modules
 #include "RandomInitialization.h"
-#include "UserInterface.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,7 +11,7 @@
 bool SaveMapToFile(Map* map) {
 
 	// open the save file
-	FILE* SaveState = fopen(SAVE_FILE, 'w');
+	FILE* SaveState = fopen(SAVE_FILE, "w");
 
 	// return false if there was an error opening the file 
 	if (SaveState == NULL)
@@ -38,14 +36,14 @@ bool SaveMapToFile(Map* map) {
 Map* LoadMapFromFile() {
 
 	// open the save file
-	FILE* SaveState = fopen(SAVE_FILE, 'w');
+	FILE* SaveState = fopen(SAVE_FILE, "r");
 
 	// return NULL if there was an error opening the file 
 	if (SaveState == NULL)
 		return NULL;
 
-	// Create a blank map, placeholder for the BlankInit function that needs to be created
-	Map* map = (Map*)malloc(sizeof(Map));
+	// Create a blank map, placeholder for the BlankInit function that needs to be created ///////////////
+	Map* map = (Map*)malloc(sizeof(Map));		
 
 	if (map == NULL)
 		return NULL;
@@ -53,35 +51,32 @@ Map* LoadMapFromFile() {
 	// read amount of elements in the file 
 	fscanf(SaveState, "%d", &(map->n));
 
-	Tile** indexes = (Tile**)malloc(sizeof(Tile*) * getN(map));
+	map->tiles = (Tile**)malloc(sizeof(Tile*) * getN(map));
 
 	for (int i = 0; i < getN(map);i++) {
-		indexes[i] = (Tile*)malloc(sizeof(Tile) * getN(map));
+		map->tiles[i] = (Tile*)malloc(sizeof(Tile) * getN(map));
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 	// start loading tiles from file int map
 	for (int x = 0; x < getN(map); x++) {
 		for (int y = 0; y < getN(map); y++) {
 
-			// remove comma from file
-			fgetc(map);
-
-			// load tile
-			Tile tile = LoadTileFromFile(SaveState);
-
 			// set tile in the map
-			indexes[x][y] = tile;
+			map->tiles[x][y] = LoadTileFromFile(SaveState);
 		}
 	}
 
-	map->tiles = indexes;
 	
 
 	// close the file
 	fclose(SaveState);
 
 	// Clear the data in the file 
-	ClearMapData(SAVE_FILE);
+	// ClearMapData(SAVE_FILE);
 
 	return map;
 }
@@ -95,7 +90,7 @@ Tile LoadTileFromFile(FILE* SaveState) {
 	char IgnoreComma;
 	Tile tile;
 
-	fscanf(SaveState, "%c%d%c%d%c%d%c%c%c%d%c%d", &IgnoreComma, &(tile.bomb), & IgnoreComma, &(tile.checked), &IgnoreComma, &(tile.flagged), &IgnoreComma, &(tile.location.letter), &IgnoreComma, &(tile.location.number), &IgnoreComma, &(tile.surrounding));
+	fscanf(SaveState, "%c%d%c%d%c%d%c%c%c%d%c%d", &IgnoreComma, &(tile.bomb), &IgnoreComma, &(tile.checked), &IgnoreComma, &(tile.flagged), &IgnoreComma, &(tile.location.letter), &IgnoreComma, &(tile.location.number), &IgnoreComma, &(tile.surrounding));
 
 	return tile;
 
@@ -104,7 +99,7 @@ Tile LoadTileFromFile(FILE* SaveState) {
 bool ClearMapData(char * filename) {
 
 	// open the save file
-	FILE* SaveState = fopen(SAVE_FILE, 'w');
+	FILE* SaveState = fopen(SAVE_FILE, "w");
 
 	// return false if there was an error opening the file 
 	if (SaveState == NULL)
@@ -112,4 +107,6 @@ bool ClearMapData(char * filename) {
 
 	// close after opening so no data is written and file is blank
 	fclose(SaveState);
+
+	return true;
 }

@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\andre\source\repos\Section1_Group7_SoftwareIntegrationRequirements\Minesweeper\Minesweeper\x64\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +134,7 @@
     <ClCompile Include="Map.c" />
     <ClCompile Include="RandomInitialization.c" />
     <ClCompile Include="SaveLoad.c" />
+    <ClCompile Include="SaveLoadTests.c" />
     <ClCompile Include="Tile.c" />
     <ClCompile Include="UserInterface.c" />
   </ItemGroup>

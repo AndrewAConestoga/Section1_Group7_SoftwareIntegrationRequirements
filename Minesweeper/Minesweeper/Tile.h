@@ -12,7 +12,7 @@ typedef struct tile {
 	bool flagged;
 	int surrounding;
 
-}Tile;
+} Tile ;
 
 // getters and setters
 

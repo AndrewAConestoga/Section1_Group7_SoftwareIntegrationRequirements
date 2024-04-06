@@ -39,6 +39,9 @@
     <ClCompile Include="Location.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SaveLoadTests.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserInterface.h">

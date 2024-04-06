@@ -5,6 +5,7 @@
 #include "Constants.h"
 #include "RandomInitialization.h"
 
+/*
 int main(void) {
 	srand(time(NULL));
 
@@ -12,3 +13,4 @@ int main(void) {
 	return 0;
 
 }
+*/

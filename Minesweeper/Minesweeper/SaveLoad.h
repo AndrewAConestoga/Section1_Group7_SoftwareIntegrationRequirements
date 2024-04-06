@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "Map.h"
+#include "Constants.h"
 
 // This function will save the data of a map structure to a 
 // save state file
