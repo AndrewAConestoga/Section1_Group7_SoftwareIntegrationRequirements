@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 		err = scanf_s("%d", &input);
 
 		if (err != 1) {
-			printf("Invalid input, pleases enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
+			printf("\n\nInvalid input, pleases enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
 			while(fgetc(stdin)!='\n');
 			continue;
 		}
@@ -49,10 +49,13 @@ int main(int argc, char* argv[]) {
 			Map* map;
 
 			if (input == 1) {
-				map = InitializeGameBoard(n);
 				n = atoi(argv[1]);
+				map = InitializeGameBoard(n);
 			}
 			else {
+				if (map==NULL) {
+					exit(1);
+				}
 				map = LoadMapFromFile();
 				n = getN(map);
 			}
@@ -74,13 +77,13 @@ int main(int argc, char* argv[]) {
 
 					// check for invalid input
 					if (err != 2) {
-						printf("Invalid input, please enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
+						printf("\n\nInvalid input, please enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
 						continue;
 					}
 
 					// check if input is out of bounds 
 					else if (inputLoc.number >= n || inputLoc.number < 0 || (inputLoc.letter - 'a' >= n || inputLoc.letter - 'a' < 0)) {
-						printf("Invalid input, please enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
+						printf("\n\nInvalid input, please enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
 						continue;
 					}
 
