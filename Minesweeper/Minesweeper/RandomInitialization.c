@@ -1,4 +1,5 @@
 #include "RandomInitialization.h"
+#include "CheckInput.h"
 #include "Map.h"
 #include "Tile.h"
 #include <time.h>
@@ -28,7 +29,41 @@ Map* RandomInit(int mapSize, Tile startingTile) {
 		if (map->tiles[xRand][yRand].bomb == true ||
 			(map->tiles[xRand][yRand].location.letter == startingTile.location.letter &&
 				map->tiles[xRand][yRand].location.number == startingTile.location.number)) {
-			//if it's occupied, generate a new random tile
+			//if it's occupied, then generate a new random tile
+			i--;
+		}
+
+		// if its around the starting tile, then generate a new random tile
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter - 1 &&
+				 map->tiles[xRand][yRand].location.number == startingTile.location.number) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter + 1 &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter - 1 &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number - 1) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter + 1 &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number + 1) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter - 1 &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number + 1) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter + 1 &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number + 1) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number - 1) {
+			i--;
+		}
+		else if (map->tiles[xRand][yRand].location.letter == startingTile.location.letter &&
+			map->tiles[xRand][yRand].location.number == startingTile.location.number + 1) {
 			i--;
 		}
 		else {
@@ -37,6 +72,42 @@ Map* RandomInit(int mapSize, Tile startingTile) {
 		}
 
 
+	}
+
+	
+	// check surrounding tiles and starting tile
+	map->tiles[startingTile.location.letter - 'a'][startingTile.location.number].checked = true;
+	if (startingTile.location.letter - 'a' - 1 >= 0) {
+		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number].location);
+	}
+	if (startingTile.location.letter - 'a' - 1 >= 0 || startingTile.location.number + 1 < getN(map)) {
+		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number + 1].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number + 1].location);
+	}
+	if (startingTile.location.letter - 'a' - 1 >= 0 || startingTile.location.number - 1 >= 0) {
+		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number - 1].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number - 1].location);
+	}
+	if (startingTile.location.letter - 'a' + 1 < getN(map)) {
+		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number].location);
+	}
+	if (startingTile.location.letter - 'a' + 1 < getN(map) || startingTile.location.number - 1 >= 0) {
+		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number - 1].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number - 1].location);
+	}
+	if (startingTile.location.letter - 'a' + 1 < getN(map) || startingTile.location.number + 1 < getN(map)) {
+		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number + 1].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number + 1].location);
+	}
+	if (startingTile.location.number - 1 >= 0) {
+		map->tiles[startingTile.location.letter - 'a'][startingTile.location.number - 1].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a'][startingTile.location.number - 1].location);
+	}
+	if (startingTile.location.number + 1 < getN(map)) {
+		map->tiles[startingTile.location.letter - 'a'][startingTile.location.number + 1].checked = true;
+		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a'][startingTile.location.number + 1].location);
 	}
 
 	return map;
@@ -49,13 +120,14 @@ Map* BlankInit(int mapSize) {
 	//create a new map struct
 
 	if (mapSize > 20) mapSize = 20;
+	else if (mapSize < 5) mapSize = 5;
 	
 		Map* map = (Map*)malloc(sizeof(Map));
 		map->n = mapSize;
 
 		char alphabet[] = { "abcdefghijklmnopqrstuvwxyz" };
 
-		Tile * *indexes = (Tile**)malloc(sizeof(Tile*) * mapSize);
+		Tile **indexes = (Tile**)malloc(sizeof(Tile*) * mapSize);
 
 		for (int i = 0; i < mapSize; i++) {
 			indexes[i] = (Tile*)malloc(sizeof(Tile) * getN(map));

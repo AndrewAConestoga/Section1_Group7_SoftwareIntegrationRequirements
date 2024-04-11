@@ -8,7 +8,6 @@
 
 Map* InitializeGameBoard(int dimensions);
 Map* GetGameState(Map* map);
-int InteractWithSquare(Map* map, Location location);
 void FreeMap(Map* map);
 void DisplayMap(Map* map);
 

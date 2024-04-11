@@ -11,10 +11,11 @@
 #include "UserInterface.h"
 
 
-int main(void) {
+int main(int argc, char* argv[]) {
 
 	// placeholder for the command line argument 
-	int n = 8;
+	 int n = atoi(argv[1]);;
+	// int n = 8;
 	char* alpha = "abcdefghijklmnopqrstuvwxyz";
 
 	srand(time(NULL));
@@ -39,6 +40,7 @@ int main(void) {
 
 		if (err != 1) {
 			printf("Invalid input, pleases enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
+			while(fgetc(stdin)!='\n');
 			continue;
 		}
 
@@ -61,7 +63,7 @@ int main(void) {
 					DisplayMap(map);
 
 					// ask user to select tile
-					printf("Enter coordinate to check in order (a1): ");
+					printf("Enter coordinate to check in order of (a1): ");
 
 					// stub for CheckInput
 					err = scanf("%c%d", &inputLoc.letter, &inputLoc.number);
@@ -106,7 +108,7 @@ int main(void) {
 				DisplayMap(map);
 
 				// ask user to select tile
-				printf("Enter coordinate to check in order (a1), or (a1!) to flag tile, or (@) to save and quit: ");
+				printf("\n\nEnter coordinate to check in order (a1), or (a1!) to flag tile, or (@) to save and quit: ");
 
 				// stub for CheckInput
 				flag = ' ';
@@ -120,44 +122,30 @@ int main(void) {
 				}
 
 				// check for invalid input
-				else if (inputLoc.number >= n || inputLoc.number < 0 || (inputLoc.letter - 'a' >= n || inputLoc.letter - 'a' < 0)) {
+				else if (isValidMove(inputLoc, n)) {
 					printf("Invalid input, please enter a number that corresponds to one of the options\n\n\n\n\n\n\n");
 					continue;
 				}
 
 				else if (flag == '!') {
-					if (map->tiles[inputLoc.letter - 'a'][inputLoc.number].flagged == false) {
-						map->tiles[inputLoc.letter - 'a'][inputLoc.number].flagged = true;
-					}
-					else {
-						map->tiles[inputLoc.letter - 'a'][inputLoc.number].flagged = false;
-					}
+					FlagOrUnflagSquare(map, inputLoc);
 				}
 
-				else if (map->tiles[inputLoc.letter - 'a'][inputLoc.number].flagged == true) {
-					printf("Cannot select flagged tile");
+				else if (isFlagged(map, inputLoc)) {
+					printf("\n\nCannot select flagged tile\n\n");
 				}
 
 				else {
-					InteractWithSquare(map, inputLoc);
+					if (InteractWithSquare(map, inputLoc) == -1) {
+						break;
+					}
 
 					// check to see if all tiles are checked or bombs
-
-					bool PlayerWon = true;
-					for (int i = 0; i < getN(map);i++) {
-
-						for (int j = 0; j < getN(map); j++) {
-
-							if (map->tiles[i][j].bomb == false && map->tiles[i][j].checked == false) {
-								PlayerWon = false;
-							}
-						}
+					if (checkForWin(map)) {
+						printf("\n\n\n\n\n\n\n\n\nYou Won!");
+						break;
 					}
-
-					if (PlayerWon) {
-						printf("You Win");
-						return 0;
-					}
+					
 
 				}
 
