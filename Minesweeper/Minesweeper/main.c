@@ -14,7 +14,7 @@
 int main(int argc, char* argv[]) {
 
 	// placeholder for the command line argument 
-	 int n = atoi(argv[1]);;
+	 int n = atoi(argv[1]);
 	// int n = 8;
 	char* alpha = "abcdefghijklmnopqrstuvwxyz";
 
@@ -48,10 +48,14 @@ int main(int argc, char* argv[]) {
 
 			Map* map;
 
-			if (input == 1)
+			if (input == 1) {
 				map = InitializeGameBoard(n);
-			else 
+				n = atoi(argv[1]);
+			}
+			else {
 				map = LoadMapFromFile();
+				n = getN(map);
+			}
 
 			if (input == 1) {
 

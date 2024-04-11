@@ -1,2 +1,3 @@
-﻿  RandomInitialization.c
+﻿  main.c
+C:\Users\andre\source\repos\Section1_Group7_SoftwareIntegrationRequirements\Minesweeper\Minesweeper\main.c(21,8): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
   Minesweeper.vcxproj -> C:\Users\andre\source\repos\Section1_Group7_SoftwareIntegrationRequirements\Minesweeper\x64\Debug\Minesweeper.exe

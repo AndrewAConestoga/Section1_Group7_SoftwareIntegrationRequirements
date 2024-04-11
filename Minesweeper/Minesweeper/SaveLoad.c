@@ -76,7 +76,7 @@ Map* LoadMapFromFile() {
 	fclose(SaveState);
 
 	// Clear the data in the file 
-	// ClearMapData(SAVE_FILE);
+	ClearMapData(SAVE_FILE);
 
 	return map;
 }
