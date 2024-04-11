@@ -77,36 +77,45 @@ Map* RandomInit(int mapSize, Tile startingTile) {
 	
 	// check surrounding tiles and starting tile
 	map->tiles[startingTile.location.letter - 'a'][startingTile.location.number].checked = true;
+	map->tiles[startingTile.location.letter - 'a'][startingTile.location.number].bomb = false;
 	if (startingTile.location.letter - 'a' - 1 >= 0) {
 		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number].checked = true;
+		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number].location);
 	}
-	if (startingTile.location.letter - 'a' - 1 >= 0 || startingTile.location.number + 1 < getN(map)) {
+	if (startingTile.location.letter - 'a' - 1 >= 0 && startingTile.location.number + 1 < getN(map)) {
 		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number + 1].checked = true;
+		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number + 1].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number + 1].location);
 	}
-	if (startingTile.location.letter - 'a' - 1 >= 0 || startingTile.location.number - 1 >= 0) {
+	if (startingTile.location.letter - 'a' - 1 >= 0 && startingTile.location.number - 1 >= 0) {
 		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number - 1].checked = true;
+		map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number - 1].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' - 1][startingTile.location.number - 1].location);
 	}
 	if (startingTile.location.letter - 'a' + 1 < getN(map)) {
 		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number].checked = true;
+		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number].location);
 	}
-	if (startingTile.location.letter - 'a' + 1 < getN(map) || startingTile.location.number - 1 >= 0) {
+	if (startingTile.location.letter - 'a' + 1 < getN(map) && startingTile.location.number - 1 >= 0) {
 		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number - 1].checked = true;
+		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number - 1].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number - 1].location);
 	}
-	if (startingTile.location.letter - 'a' + 1 < getN(map) || startingTile.location.number + 1 < getN(map)) {
+	if (startingTile.location.letter - 'a' + 1 < getN(map) && startingTile.location.number + 1 < getN(map)) {
 		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number + 1].checked = true;
+		map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number + 1].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a' + 1][startingTile.location.number + 1].location);
 	}
 	if (startingTile.location.number - 1 >= 0) {
 		map->tiles[startingTile.location.letter - 'a'][startingTile.location.number - 1].checked = true;
+		map->tiles[startingTile.location.letter - 'a'][startingTile.location.number - 1].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a'][startingTile.location.number - 1].location);
 	}
 	if (startingTile.location.number + 1 < getN(map)) {
 		map->tiles[startingTile.location.letter - 'a'][startingTile.location.number + 1].checked = true;
+		map->tiles[startingTile.location.letter - 'a'][startingTile.location.number + 1].bomb = false;
 		InteractWithSquare(map, map->tiles[startingTile.location.letter - 'a'][startingTile.location.number + 1].location);
 	}
 

@@ -108,17 +108,16 @@ int main(int argc, char* argv[]) {
 				DisplayMap(map);
 
 				// ask user to select tile
-				printf("\n\nEnter coordinate to check in order (a1), or (a1!) to flag tile, or (@) to save and quit: ");
+				printf("\n\nEnter coordinate to check in order (a1), or (a1!) to flag tile, or (@0) to save and quit: ");
 
 				// stub for CheckInput
 				flag = ' ';
 				err = scanf("%c%d%c", &inputLoc.letter, &inputLoc.number, &flag);
 
-				if (inputLoc.letter == '@') {
+				if (inputLoc.letter == '@' && inputLoc.number == 0) {
 					SaveMapToFile(map);
 					FreeMap(map);
 					exit(true);
-					break;
 				}
 
 				// check for invalid input
@@ -142,7 +141,7 @@ int main(int argc, char* argv[]) {
 
 					// check to see if all tiles are checked or bombs
 					if (checkForWin(map)) {
-						printf("\n\n\n\n\n\n\n\n\nYou Won!");
+						printf("\n\n\n\n\n\n\n\n\nYou Won!\n\n\n");
 						break;
 					}
 					
